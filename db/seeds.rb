@@ -1,7 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'rest-client'
+require 'json'
+
+
+def get_areas
+    response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas?limit=50&offset=0&state=CO,CA,OR,ID,AZ,NV,WA,MT&radius=10&lastupdated=04-15-2020&apikey=c27f931a-b90d-494c-b598-943e55922964"
+    parsed_json = JSON.parse(response)
+
+    byebug
+    
+    parsed_json["RECDATA"].map do |area|
+            Area.create(
+                RecAreaID: area["RecAreaID"],
+                RecAreaName: area["RecAreaName"],
+                RecAreaDescription: area["RecAreaDescription"],
+                RecAreaLongitude: area["RecAreaLongitude"],
+                RecAreaLatitude: area["RecAreaLatitude"],
+                LastUpdatedDate: park["LastUpdatedDate"]
+            )
+    end
+end
+
