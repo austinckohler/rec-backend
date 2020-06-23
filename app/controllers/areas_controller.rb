@@ -1,5 +1,7 @@
 class AreasController < ApplicationController
 
+    # before_action :find_area_by_id, only: [:show, :update, :destroy]
+
     def index
         @areas = Area.all
         render json: @areas
@@ -10,7 +12,14 @@ class AreasController < ApplicationController
     end
     
     def create
-        @area = Area.create(area_params)
+        @area = Area.create(
+            RecAreaID: params[:RecAreaID],
+            RecAreaName: params[:RecAreaName],
+            RecAreaDescription: params[:RecAreaDescription],
+            RecAreaLongitude: params[:RecAreaLongitude],
+            RecAreaLatitude: params[:RecAreaLatitude],
+            LastUpdatedDate: params[:LastUpdatedDate]
+        )
         render json: @area
     end
     
@@ -24,13 +33,13 @@ class AreasController < ApplicationController
         redirect_to action: "index"
     end
 
-    private 
+    # private 
 
-    def area_params
-        params.require(:area).permit(:RecAreaID, :RecAreaName, :RecAreaDescription, :RecAreaLongitude, :RecAreaLatitude, :LastUpdatedDate)
-    end
+    # def area_params
+    #     params.require(:area).permit(:RecAreaID, :RecAreaName, :RecAreaDescription, :RecAreaLongitude, :RecAreaLatitude, :LastUpdatedDate)
+    # end
 
-    def find_area_by_id
-        @area = Area.find(params[:id])
-    end
+    # def find_area_by_id
+    #     @area = Area.find(params[:id])
+    # end
 end
