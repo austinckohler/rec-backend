@@ -27,14 +27,19 @@ def get_areas
                    Activity.create(
                     name: activity["ActivityName"],
                     description: activity["RecAreaActivityDescription"],
-                    areaid: activity["RecAreaID"]
+                    areaid: activity["RecAreaID"],
+                    area_id: area.id
                    )
                 end
-          
-                end
-               
+            end
     end
 end
 
 get_areas
 
+# def get_facilities 
+
+#     facility_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas?state=CO&lastupdated=05-01-2020&sort=%22Name%22&apikey=c27f931a-b90d-494c-b598-943e55922964"
+#     parsed_json = JSON.parse(response)
+
+# end
