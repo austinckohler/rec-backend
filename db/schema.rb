@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_193812) do
+ActiveRecord::Schema.define(version: 2020_06_23_221410) do
+
+  create_table "activities", force: :cascade do |t|
+    t.integer "area_id"
+    t.string "name"
+    t.string "description"
+    t.string "areaid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["area_id"], name: "index_activities_on_area_id"
+  end
 
   create_table "areas", force: :cascade do |t|
     t.string "areaID"
@@ -19,24 +29,11 @@ ActiveRecord::Schema.define(version: 2020_06_23_193812) do
     t.text "directions"
     t.string "phone"
     t.text "email"
-    t.integer "long"
-    t.integer "lat"
+    t.float "long"
+    t.float "lat"
     t.string "lastUpdated"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "facilities", force: :cascade do |t|
-    t.string "facilityID"
-    t.string "recAreaID"
-    t.string "name"
-    t.text "description"
-    t.text "directions"
-    t.integer "area_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["area_id"], name: "index_facilities_on_area_id"
-  end
-
-  add_foreign_key "facilities", "areas"
 end
