@@ -10,15 +10,6 @@ class CreateAreas < ActiveRecord::Migration[6.0]
       t.float :long
       t.float :lat
       t.string :lastUpdated
-      # t.string :facilityID
-      # t.string :facilityName
-      # t.string :activityID
-      # t.string :recAreaActivityID
-      # t.string :linkAreaID
-      # t.string :linkTitle
-      # t.string :linkURL
-      # t.string :mediaAreaID
-      # t.string :mediaURL
 
       t.timestamps
     end

@@ -32,6 +32,21 @@ def get_areas
                    )
                 end
             end
+
+            Area.all.map do |area|
+                link_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas/#{area.areaID}/links?apikey=c27f931a-b90d-494c-b598-943e55922964"
+                parsed_link = JSON.parse(link_response)
+
+                parsed_link["RECDATA"].map do |link|
+                   Link.create(
+                    title: link["Title"],
+                    URL: link["URL"],
+                    areaid: link["EntityID"],
+                    area_id: area.id
+                   )
+                end
+                byebug
+            end
     end
 end
 
