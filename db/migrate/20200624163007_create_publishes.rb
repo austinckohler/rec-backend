@@ -3,7 +3,6 @@ class CreatePublishes < ActiveRecord::Migration[6.0]
     create_table :publishes do |t|
       t.string :title
       t.string :URL
-      t.string :areaid
       t.references :area, null: false, foreign_key: true
 
       t.timestamps

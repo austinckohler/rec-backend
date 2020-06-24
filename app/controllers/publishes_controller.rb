@@ -7,14 +7,13 @@ class PublishesController < ApplicationController
     
     def show
         @publish = Publish.find(params[:id])
-        render json: @publish, include: [:areas]
+        render json: @publish
     end
     
     def create
         @publish = Publish.create(
             title: params[:title],
             URL: params[:URL],
-            areaid: params[:EntityID],
         )
         render json: @publish
 

@@ -7,14 +7,12 @@ class ActivitiesController < ApplicationController
     
     def show
         @activity = Activity.find(params[:id])
-        render json: @activity, include: [:areas]
+        render json: @activity
     end
     
     def create
         @activity = Activity.create(
-            name: params[:ActivityName],
-            description: params[:RecAreaActivityDescription],
-            areaid: params[:RecAreaID],
+            name: params[:ActivityName]
         )
         render json: @activity
 

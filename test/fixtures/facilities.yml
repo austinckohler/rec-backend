@@ -1,9 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  facilityID: MyString
-  area: one
+  name: MyString
+  description: MyText
+  long: 1.5
+  lat: 1.5
+  lastUpdated: MyString
 
 two:
-  facilityID: MyString
-  area: two
+  name: MyString
+  description: MyText
+  long: 1.5
+  lat: 1.5
+  lastUpdated: MyString

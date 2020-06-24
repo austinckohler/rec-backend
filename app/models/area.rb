@@ -1,3 +1,5 @@
 class Area < ApplicationRecord
-    has_many :activities, :links, :publishes
+    has_many :activities
+    has_many :links
+    has_many :publishes
 end

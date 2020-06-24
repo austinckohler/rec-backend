@@ -4,7 +4,7 @@ class AreasController < ApplicationController
 
     def index
         @areas = Area.all
-        render json: @areas
+        render json: @areas, include: [:activities, :links, :publishes]
     end
     
     def show

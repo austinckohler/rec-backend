@@ -8,14 +8,13 @@ class LinksController < ApplicationController
     
     def show
         @link = Link.find(params[:id])
-        render json: @link, include: [:areas]
+        render json: @link
     end
     
     def create
         @link = Link.create(
             title: params[:title],
-            URL: params[:URL],
-            areaid: params[:EntityID],
+            URL: params[:URL]
         )
         render json: @link
 

@@ -3,8 +3,8 @@ require 'json'
 
 
 def get_areas
-    response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas?state=CO&lastupdated=05-01-2020&sort=%22Name%22&apikey=c27f931a-b90d-494c-b598-943e55922964"
-    parsed_json = JSON.parse(response)
+    areas_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas?state=CO&activity=CAMPING,CLIMBING,HIKING,BIKING,WILDERNESS&lastupdated=05-01-2020&apikey=c27f931a-b90d-494c-b598-943e55922964"
+    parsed_json = JSON.parse(areas_response)
 
     parsed_json["RECDATA"].map do |area|
             Area.create(
@@ -18,16 +18,15 @@ def get_areas
                 lat: area["RecAreaLatitude"],
                 lastUpdated: area["LastUpdatedDate"],
             )
+    
       
             Area.all.map do |area|
-                activity_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas/#{area.areaID}/activities?limit=50&offset=0&apikey=c27f931a-b90d-494c-b598-943e55922964"
+                activity_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas/#{area.areaID}/activities?apikey=c27f931a-b90d-494c-b598-943e55922964"
                 parsed_activity = JSON.parse(activity_response)
 
                 parsed_activity["RECDATA"].map do |activity|
                    Activity.create(
                     name: activity["ActivityName"],
-                    description: activity["RecAreaActivityDescription"],
-                    areaid: activity["RecAreaID"],
                     area_id: area.id
                    )
                 end
@@ -41,7 +40,6 @@ def get_areas
                    Link.create(
                     title: link["Title"],
                     URL: link["URL"],
-                    areaid: link["EntityID"],
                     area_id: area.id
                    )
                 end
@@ -54,7 +52,6 @@ def get_areas
                    Publish.create(
                     title: publish["Title"],
                     URL: publish["URL"],
-                    areaid: publish["EntityID"],
                     area_id: area.id
                    )
                 end
@@ -65,9 +62,21 @@ end
 
 get_areas
 
-# def get_facilities 
+def get_facilities 
 
-#     facility_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas?state=CO&lastupdated=05-01-2020&sort=%22Name%22&apikey=c27f931a-b90d-494c-b598-943e55922964"
-#     parsed_json = JSON.parse(response)
+    facility_response = RestClient.get "https://ridb.recreation.gov/api/v1/facilities?query=CAMPING,HIKING&full=false&state=CO&activity=CAMPING,CLIMBING,HIKING,&lastupdated=06-01-2020&apikey=c27f931a-b90d-494c-b598-943e55922964"
+    parsed_json = JSON.parse(facility_response)
 
-# end
+    parsed_json["RECDATA"].map do |facility|
+            Facility.create(
+               
+                name: facility["FacilityName"],
+                description: facility["FacilityDescription"],
+                directions: facility["FacilityDirections"],
+                long: facility["FacilityLongitude"],
+                lat: facility["FacilityLatitude"],
+                lastUpdated: facility["LastUpdatedDate"],
+            )
+    end
+end
+get_facilities

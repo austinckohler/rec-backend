@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :facilities
   resources :publishes
   resources :media
   resources :links
