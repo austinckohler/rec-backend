@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :publishes
+  resources :media
   resources :links
   resources :activities
   resources :areas

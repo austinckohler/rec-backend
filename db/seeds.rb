@@ -45,8 +45,21 @@ def get_areas
                     area_id: area.id
                    )
                 end
-                byebug
             end
+            Area.all.map do |area|
+                publish_response = RestClient.get "https://ridb.recreation.gov/api/v1/recareas/#{area.areaID}/media?apikey=c27f931a-b90d-494c-b598-943e55922964"
+                parsed_publish = JSON.parse(publish_response)
+
+                parsed_publish["RECDATA"].map do |publish|
+                   Publish.create(
+                    title: publish["Title"],
+                    URL: publish["URL"],
+                    areaid: publish["EntityID"],
+                    area_id: area.id
+                   )
+                end
+            end
+
     end
 end
 
