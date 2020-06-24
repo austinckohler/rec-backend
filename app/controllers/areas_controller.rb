@@ -9,7 +9,7 @@ class AreasController < ApplicationController
     
     def show
         @area = Area.find(params[:id])
-        render json: @area, include: [:activities]
+        render json: @area, include: [:activities, :links, :publishes]
     end
     
     def create
@@ -22,16 +22,6 @@ class AreasController < ApplicationController
             long: params[:RecAreaLongitude],
             lat: params[:RecAreaLatitude],
             lastUpdated: params[:LastUpdatedDate],
-            
-            # FacilityID: params["FACILITY"][0]["FacilityID"]
-            # facilityName: params["FACILITY"][0]["FacilityName"]
-            # activityID: params["ACTIVITY"][0]["ActvityID"]
-            # recAreaActivityID: params["ACTIVITY"][0]["RecAreaID"]
-            # linkAreaID: params["LINK"][0]["EntityID"]
-            # linkTitle: params["LINK"][0]["Title"]
-            # linkURL: params["LINK"][0]["URL"]
-            # mediaAreaID: params["MEDIA"][0]["EntityID"]
-            # mediaURL: params["MEDIA"][0]["URL"]
         )
         render json: @area
 
