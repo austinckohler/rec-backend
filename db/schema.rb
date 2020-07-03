@@ -12,14 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2020_06_24_192157) do
 
-  create_table "activities", force: :cascade do |t|
-    t.string "name"
-    t.integer "area_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["area_id"], name: "index_activities_on_area_id"
-  end
-
   create_table "areas", force: :cascade do |t|
     t.string "areaID"
     t.string "name"
@@ -27,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_192157) do
     t.text "directions"
     t.string "phone"
     t.text "email"
+    t.text "map"
     t.float "long"
     t.float "lat"
     t.string "lastUpdated"
@@ -45,25 +38,4 @@ ActiveRecord::Schema.define(version: 2020_06_24_192157) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "links", force: :cascade do |t|
-    t.string "title"
-    t.string "URL"
-    t.integer "area_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["area_id"], name: "index_links_on_area_id"
-  end
-
-  create_table "publishes", force: :cascade do |t|
-    t.string "title"
-    t.string "URL"
-    t.integer "area_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["area_id"], name: "index_publishes_on_area_id"
-  end
-
-  add_foreign_key "activities", "areas"
-  add_foreign_key "links", "areas"
-  add_foreign_key "publishes", "areas"
 end

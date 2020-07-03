@@ -7,6 +7,7 @@ class CreateAreas < ActiveRecord::Migration[6.0]
       t.text :directions
       t.string :phone
       t.text :email
+      t.text :map
       t.float :long
       t.float :lat
       t.string :lastUpdated

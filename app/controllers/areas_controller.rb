@@ -4,12 +4,12 @@ class AreasController < ApplicationController
 
     def index
         @areas = Area.all
-        render json: @areas, include: [:activities, :links, :publishes]
+        render json: @areas
     end
     
     def show
         @area = Area.find(params[:id])
-        render json: @area, include: [:activities, :links, :publishes]
+        render json: @area
     end
     
     def create
@@ -19,6 +19,7 @@ class AreasController < ApplicationController
             description: params[:RecAreaDescription],
             phone: params[:RecAreaPhone],
             email: params[:RecAreaEmail],
+            map: params[:RecAreaMapURL],
             long: params[:RecAreaLongitude],
             lat: params[:RecAreaLatitude],
             lastUpdated: params[:LastUpdatedDate],
